@@ -95,4 +95,4 @@ async def set_chat_photo(_, message):
     photo = await reply.download()
     await message.chat.set_photo(photo)
     await message.reply_text("Successfully Changed Group Photo")
-    os.remove(photo)￼Enter
+    os.remove(photo) 
