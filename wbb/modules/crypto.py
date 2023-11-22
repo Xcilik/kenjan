@@ -1,5 +1,6 @@
 from pyrogram import filters
 import asyncio
+import requests
 from wbb import app, app2
 from wbb.core.decorators.errors import capture_err
 from wbb.core.keyboard import ikb
@@ -57,9 +58,9 @@ async def crypto(_, message):
 
 
 
+CRYPTO_API_KEY = 'f07c9026a8b17c9eea33f32d5dd832c067289ae228dd433e79dce3be0ac5a6f9'
 
-
-def convert_currency(from_currency, to_currency, amount):
+def convert_currency(from_currency, to_currency, amount):CRYPTO_API_KEY
     url = f'https://min-api.cryptocompare.com/data/price?fsym={from_currency}&tsyms={to_currency}&api_key={CRYPTO_API_KEY}'
     response = requests.get(url)
     data = response.json()
