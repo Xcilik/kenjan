@@ -186,8 +186,9 @@ async def start(_, message):
                 reply_markup=keyb,
             )
     else:
-        await message.reply(
-            home_text_pm,
+        await message.reply_photo(
+            "https://telegra.ph//file/64a5cc84c5d4be663fe8d.jpg",
+            caption=home_text_pm,
             reply_markup=home_keyboard_pm,
         )
     return
