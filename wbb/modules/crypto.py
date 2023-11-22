@@ -55,6 +55,22 @@ async def crypto(_, message):
     await m.edit(text, reply_markup=btn)
 
 
+
+
+
+
+def convert_currency(from_currency, to_currency, amount):
+    url = f'https://min-api.cryptocompare.com/data/price?fsym={from_currency}&tsyms={to_currency}&api_key={CRYPTO_API_KEY}'
+    response = requests.get(url)
+    data = response.json()
+    converted_amount = data[to_currency] * amount
+    return converted_amount
+
+# Inisialisasi klien Pyrogram
+
+# Fungsi untuk menanggapi pesan
+
+# Jalankan klien Pyrogram
 @app.on_message(filters.command("convert"))
 async def _(client, message):
     link = (
@@ -68,16 +84,16 @@ async def _(client, message):
     if not link:
         await message.reply("<b>Usage:</b>\n» .conv [amount] [from] [to]")
     else:
-        bot = "CryptoConverterCCBot"
-        await app2.unblock_user(bot)
-        xnxx = await app2.send_message(bot, f"/convert {link}")
-        await asyncio.sleep(1.5)
-        async for sosmed in app2.search_messages(bot, query="Result"):
-            try:
-                await asyncio.gather(*[
-                    message.reply(f"{sosmed.text}")])
-              #  user_info = await app2.resolve_peer("@CryptoConverterCCBot")
-           #     return await client.send(DeleteHistory(peer=user_info, max_id=0, revoke=True))                
-            except Exception:
-                await message.reply(
-                    "<b>Error.</b>")
+        try:
+            command, from_currency, to_currency, amount = message.text.split(" ")
+            amount = float(amount)
+        except ValueError:
+            await message.reply_text("Format yang tidak valid. Gunakan: /convert   ")
+            return
+
+    # Lakukan konversi mata uang
+        converted_amount = convert_currency(from_currency.upper(), to_currency.upper(), amount)
+
+    # Kirim hasil konversi ke pengguna
+        result_text = f"{amount} {from_currency} = {converted_amount} {to_currency}"
+        await message.reply_text(result_text)
