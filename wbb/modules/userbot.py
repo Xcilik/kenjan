@@ -325,7 +325,7 @@ async def _(client, message):
                         captions = "Done!\n\nSuccess downloaded from Twitter!",
                     )
                     await Tm.delete()
-                except Exceptionas e:
+                except Exception as e:
                     await Tm.edit(f"{e}")
 
         else:
