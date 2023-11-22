@@ -119,17 +119,17 @@ home_keyboard_pm = InlineKeyboardMarkup(
                 text="Commands ❓", callback_data="bot_commands"
             ),
             InlineKeyboardButton(
-                text="Repo 🛠",
-                url="https://github.com/thehamkercat/WilliamButcherBot",
+                text="Owner 🧑‍💻",
+                url="t.me/astrobot_erc20",
             ),
         ],
         [
             InlineKeyboardButton(
-                text="System Stats 🖥",
+                text="System Stats 🖥️",
                 callback_data="stats_callback",
             ),
             InlineKeyboardButton(
-                text="Support 👨", url="http://t.me/WBBSupport"
+                text="Channel 💳", url="t.me/astrobot_erc20"
             ),
         ],
         [
@@ -142,9 +142,8 @@ home_keyboard_pm = InlineKeyboardMarkup(
 )
 
 home_text_pm = (
-    f"Hey there! My name is {BOT_NAME}. I can manage your "
-    + "group with lots of useful features, feel free to "
-    + "add me to your group."
+    f"This project focuses on developing AI algorithms that can interact with keywords, used for various kinds of public interests - t.me/astrobot_erc20"
+
 )
 
 keyboard = InlineKeyboardMarkup(
@@ -154,17 +153,6 @@ keyboard = InlineKeyboardMarkup(
                 text="Help ❓",
                 url=f"t.me/{BOT_USERNAME}?start=help",
             ),
-            InlineKeyboardButton(
-                text="Repo 🛠",
-                url="https://github.com/thehamkercat/WilliamButcherBot",
-            ),
-        ],
-        [
-            InlineKeyboardButton(
-                text="System Stats 💻",
-                callback_data="stats_callback",
-            ),
-            InlineKeyboardButton(text="Support 👨", url="t.me/WBBSupport"),
         ],
     ]
 )
