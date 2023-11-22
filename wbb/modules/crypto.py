@@ -1,6 +1,6 @@
 from pyrogram import filters
-
-from wbb import app
+import asyncio
+from wbb import app, app2
 from wbb.core.decorators.errors import capture_err
 from wbb.core.keyboard import ikb
 from wbb.core.sections import section
@@ -10,6 +10,11 @@ __MODULE__ = "Crypto"
 __HELP__ = """
 /crypto [currency]
         Get Real Time value from currency given.
+
+/convert [amount] [from] [to]
+<b>example:</b> <code>.conv</code> 2 btc eth.
+
+To convert Crypto currency
 """
 
 
@@ -48,3 +53,31 @@ async def crypto(_, message):
         body,
     )
     await m.edit(text, reply_markup=btn)
+
+
+@app.on_message(filters.command("convert"))
+async def _(client, message):
+    link = (
+        message.text.split(None, 1)[1]
+        if len(
+            message.command,
+        )
+        != 1
+        else None
+    )
+    if not link:
+        await message.reply("<b>Usage:</b>\n» .conv [amount] [from] [to]")
+    else:
+        bot = "CryptoConverterCCBot"
+        await app2.unblock_user(bot)
+        xnxx = await app2.send_message(bot, f"/convert {link}")
+        await asyncio.sleep(1.5)
+        async for sosmed in app2.search_messages(bot, query="Result"):
+            try:
+                await asyncio.gather(*[
+                    message.reply(f"{sosmed.text}")])
+              #  user_info = await app2.resolve_peer("@CryptoConverterCCBot")
+           #     return await client.send(DeleteHistory(peer=user_info, max_id=0, revoke=True))                
+            except Exception:
+                await message.reply(
+                    "<b>Error.</b>")
