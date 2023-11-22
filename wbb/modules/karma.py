@@ -26,6 +26,7 @@ import re
 from pyrogram import filters
 
 from wbb import app
+import g4f
 from wbb.core.decorators.errors import capture_err
 from wbb.core.decorators.permissions import adminsOnly
 from wbb.core.sections import section
@@ -53,6 +54,58 @@ regex_upvote = r"^(\++|\+1|thx|tnx|tq|ty|thankyou|thank you|thanx|thanks|pro|coo
 regex_downvote = r"^(-+|-1|not cool|disagree|worst|bad|👎|-+ .+)$"
 
 
+
+async def ChatGPT(question):
+    try:
+        response = await g4f.ChatCompletion.create_async(
+            model=g4f.models.default,
+            provider=g4f.Provider.GeekGpt,
+            messages=[
+                {"role": "system", "content": "You are a helpful assistant."},
+                {"role": "user", "content": question},
+            ],
+            timeout=60,
+        )
+        return response if response else "lagi error coba lagi nanti"
+    except Exception as error:
+        return str(error)
+
+def get_text(message):
+    reply_text = (
+        message.reply_to_message.text or message.reply_to_message.caption
+        if message.reply_to_message
+        else ""
+    )
+    user_text = message.text.split(None, 1)[1] if len(message.text.split()) >= 2 else ""
+    return (
+        f"{user_text}\n\n{reply_text}"
+        if reply_text and user_text
+        else reply_text + user_text
+    )
+
+@app.on_message(
+    filters.command("ai")
+)
+async def openai(_, message):
+    args = get_text(message)
+    if not args:
+        return await message.reply("<b>What???</b>")    
+    Tm = await message.reply("<code>Generated Text...</code>")        
+    try:
+        response = await ChatGPT(args)
+        if len(response) > 4096:
+            with io.BytesIO(response.encode()) as out_file:
+                out_file.name = "openAi.txt"
+                await message.reply_document(document=out_file)
+        else:
+            msg = message.reply_to_message or message
+            await app.send_message(
+                message.chat.id, response, reply_to_message_id=msg.id
+            )
+    except Exception as error:
+        await message.reply(str(error))
+    await Tm.delete()
+    
 @app.on_message(
     filters.text
     & filters.group
