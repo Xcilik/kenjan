@@ -299,7 +299,7 @@ async def _(client, message):
             await xnxx.delete()
             await asyncio.sleep(6)
             async for sosmed in app2.search_messages(bot, filter=MessagesFilter.VIDEO, limit=1):
-                  try:
+                try:
                     anu = await app2.download_media(sosmed)
                     await app.send_video(
                         message.chat.id,
