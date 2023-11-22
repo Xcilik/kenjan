@@ -29,32 +29,11 @@ from pyrogram.types import Message
 from wbb import BOT_ID, SUDOERS, USERBOT_ID, app, app2
 from wbb.core.decorators.errors import capture_err
 
-__MODULE__ = "Pipes"
+__MODULE__ = "Downloader"
 __HELP__ = """
-**THIS MODULE IS ONLY FOR DEVS**
+/dl or /download [link] - download social media videos.
 
-Use this module to create a pipe that will forward messages of one chat/channel to another.
-
-
-/activate_pipe [FROM_CHAT_ID] [TO_CHAT_ID] [BOT|USERBOT]
-
-    Active a pipe.
-
-    choose 'BOT' or 'USERBOT' according to your needs,
-    this will decide which client will fetch the
-    message from 'FROM_CHAT'.
-
-
-/deactivate_pipe [FROM_CHAT_ID]
-    Deactivete a pipe.
-
-
-/show_pipes
-    Show all the active pipes.
-
-**NOTE:**
-    These pipes are only temporary, and will be destroyed
-    on restart.
+Instagram/tiktok/Twitter
 """
 pipes_list_bot = {}
 pipes_list_userbot = {}
