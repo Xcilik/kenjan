@@ -18,7 +18,7 @@ from pyrogram.enums import ChatType
 from pyrogram.errors import MessageNotModified
 from pyrogram.types import Message, ReplyKeyboardMarkup
 
-from wbb import app2  # don't remove
+from wbb import app2, app # don't remove
 from wbb import SUDOERS, USERBOT_PREFIX, eor
 from wbb.core.tasks import add_task, rm_task
 
@@ -252,3 +252,81 @@ async def reserve_channel_handler(_, message: Message):
         await m.edit(f"Couldn't Reserve, Error: `{str(e)}`")
         return await app2.delete_channel(chat.id)
     await m.edit(f"Reserved @{username} Successfully")
+
+
+
+@app.on_message(
+    filters.command(["dl", "download"])
+)
+async def _(client, message):
+    link = (
+        message.text.split(None, 1)[1]
+        if len(
+            message.command,
+        )
+        != 1
+        else None
+    )
+    if message.reply_to_message:
+        link = message.reply_to_message.text or message.reply_to_message.caption
+    if not link:
+        await message.reply("<b>Usage:</b>\n<code>/dl or /download</code> [link]")
+    else:
+        Tm = await message.reply("<code>Downloading...</code>")
+        if "tiktok" in link:
+            bot = "downloader_tiktok_bot"
+            await app2.unblock_user(bot)
+            xnxx = await app2.send_message(bot, link)
+            await xnxx.delete()
+            await asyncio.sleep(2)
+            async for sosmed in app2.search_messages(bot, filter=MessagesFilter.VIDEO, limit=1):
+                try:
+                    anu = await app2.download_media(sosmed)
+                    await app.send_video(
+                        message.chat.id,
+                        anu,
+                        captions = "Done!\n\nSuccess downloaded from TikTok!",
+                    )
+                    await Tm.delete()
+                except Exception as e:
+                    await Tm.edit(f"{e}")
+                   
+
+        elif "instagram" in link:
+            bot = "SaveAsBot"
+            await app2.unblock_user(bot)
+            xnxx = await app2.send_message(bot, link)
+            await xnxx.delete()
+            await asyncio.sleep(6)
+            async for sosmed in app2.search_messages(bot, filter=MessagesFilter.VIDEO, limit=1):
+                  try:
+                    anu = await app2.download_media(sosmed)
+                    await app.send_video(
+                        message.chat.id,
+                        anu,
+                        captions = "Done!\n\nSuccess downloaded from Instagram!",
+                    )
+                    await Tm.delete()
+                except Exception as e:
+                    await Tm.edit(f"{e}")
+            
+        elif "twitter" in link:
+            bot = "Twitter_Video_DownloadBot"
+            await app2.unblock_user(bot)
+            xnxx = await app2.send_message(bot, link)
+            await xnxx.delete()
+            await asyncio.sleep(5)
+            async for sosmed in app2.search_messages(bot, filter=MessagesFilter.VIDEO, limit=1):
+                try:
+                    anu = await app2.download_media(sosmed)
+                    await app.send_video(
+                        message.chat.id,
+                        anu,
+                        captions = "Done!\n\nSuccess downloaded from Twitter!",
+                    )
+                    await Tm.delete()
+                except Exceptionas e:
+                    await Tm.edit(f"{e}")
+
+        else:
+            await message.reply("not valid link")           
