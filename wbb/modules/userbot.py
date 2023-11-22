@@ -10,6 +10,7 @@ import re
 import subprocess
 import sys
 import traceback
+import asyncio
 from html import escape
 from io import StringIO
 
