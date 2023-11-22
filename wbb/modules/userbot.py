@@ -15,7 +15,7 @@ from html import escape
 from io import StringIO
 
 from pyrogram import filters
-from pyrogram.enums import ChatType
+from pyrogram.enums import ChatType, MessagesFilter
 from pyrogram.errors import MessageNotModified
 from pyrogram.types import Message, ReplyKeyboardMarkup
 
