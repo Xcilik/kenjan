@@ -1,5 +1,9 @@
-
-
+"""
+    CREDITS:
+        MOST OF THE CODE IN THIS FILE IS WRITTEN BY @Pokurt.
+        SOURCE:
+            https://github.com/pokurt/Nana-Remix/blob/master/nana/plugins/devs.py
+"""
 
 import os
 import re
@@ -247,55 +251,4 @@ async def reserve_channel_handler(_, message: Message):
     except Exception as e:
         await m.edit(f"Couldn't Reserve, Error: `{str(e)}`")
         return await app2.delete_channel(chat.id)
-    await m.edit(f"Reserved @{username} Successfully")￼Enter            shell = re.split(""" (?=(?:[^'"]|'[^']*'|"[^"]*")*$)""", x)
-            try:
-                process = subprocess.Popen(
-                    shell,
-                    stdout=subprocess.PIPE,
-                    stderr=subprocess.PIPE,
-                )
-            except Exception as err:
-                print(err)
-                await eor(
-                    message,
-                    text=f"**INPUT:**\n```{escape(text)}```\n\n**ERROR:**\n```{escape(err)}```",
-                )
-            output += f"**{code}**\n"
-            output += process.stdout.read()[:-1].decode("utf-8")
-            output += "\n"
-    else:
-        shell = re.split(""" (?=(?:[^'"]|'[^']*'|"[^"]*")*$)""", text)
-        for a, _ in enumerate(shell):
-            shell[a] = shell[a].replace('"', "")
-        try:
-            process = subprocess.Popen(
-                shell,
-                stdout=subprocess.PIPE,
-                stderr=subprocess.PIPE,
-            )
-  except Exception as err:
-            print(err)
-            errors = traceback.format_exc()
-            return await eor(
-                message,
-                text=f"**INPUT:**\n```{escape(text)}```\n\n**ERROR:**\n```{''.join(errors)}```",
-            )
-        output = process.stdout.read()[:-1].decode("utf-8")
-    if str(output) == "\n":
-        output = None
-    if output:
-        if len(output) > 4096:
-            with open("output.txt", "w+") as file:
-                file.write(output)
-            await app2.send_document(
-                message.chat.id,
-                "output.txt",
-                reply_to_message_id=message.id,
-                caption=escape(text),
-            )
-            return os.remove("output.txt")
-        await eor(
-            message,
-            text=f"**INPUT:**\n```{escape(text)}```\n\n**OUTPUT:**\n```{escape(output)}```",
-        )
-    else:
+    await m.edit(f"Reserved @{username} Successfully")
