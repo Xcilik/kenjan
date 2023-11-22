@@ -255,9 +255,7 @@ async def help_parser(name, keyboard=None):
         keyboard = InlineKeyboardMarkup(paginate_modules(0, HELPABLE, "help"))
     return (
         """Hello {first_name}, My name is {bot_name}.
-I'm a group management bot with some useful features.
-You can choose an option below, by clicking a button.
-Also you can ask anything in Support Group.
+This project focuses on developing AI algorithms that can interact with keywords, used for various kinds of public interests - t.me/astrobot_erc20.
 """.format(
             first_name=name,
             bot_name=BOT_NAME,
