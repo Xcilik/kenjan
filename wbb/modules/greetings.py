@@ -66,9 +66,7 @@ from wbb.utils.functions import (
     extract_text_and_keyb,
     generate_captcha,
 )
-
-__MODULE__ = "Greetings"
-__HELP__ = """
+"""
 /captcha [ENABLE|DISABLE] - Enable/Disable captcha.
 
 /set_welcome - Reply this to a message containing correct
