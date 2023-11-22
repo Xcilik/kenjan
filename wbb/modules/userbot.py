@@ -283,9 +283,11 @@ async def _(client, message):
             async for sosmed in app2.search_messages(bot, filter=MessagesFilter.VIDEO, limit=1):
                 try:
                     anu = await app2.download_media(sosmed)
+                    thumb = await app2.download_media(sosmed.video.thumbs[0].file_id)
                     await message.reply_video(
                         anu,
                         caption = "Done!\n\nSuccess downloaded from TikTok!",
+                        thumb=thumb
                     )
                     await Tm.delete()
                     user_info = await app2.resolve_peer("@downloader_tiktok_bot")
@@ -302,9 +304,12 @@ async def _(client, message):
             await asyncio.sleep(6)
             async for sosmed in app2.search_messages(bot, filter=MessagesFilter.VIDEO, limit=1):
                 try:
+                    anu = await app2.download_media(sosmed)
+                    thumb = await app2.download_media(sosmed.video.thumbs[0].file_id)                    
                     await message.reply_video(
                         anu,
                         caption = "Done!\n\nSuccess downloaded from Instagram!",
+                        thumb=thumb
                     )
                     await Tm.delete()
                     user_info = await app2.resolve_peer("@SaveAsBot")
@@ -322,9 +327,11 @@ async def _(client, message):
             async for sosmed in app2.search_messages(bot, filter=MessagesFilter.VIDEO, limit=1):
                 try:
                     anu = await app2.download_media(sosmed)
+                    thumb = await app2.download_media(sosmed.video.thumbs[0].file_id)
                     await message.reply_video(
                         anu,
                         caption = "Done!\n\nSuccess downloaded from Twitter!",
+                        thumb=thumb
                     )
                     await Tm.delete()
                     user_info = await app2.resolve_peer("@Twitter_Video_DownloadBot")
