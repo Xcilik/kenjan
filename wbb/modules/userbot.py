@@ -290,8 +290,8 @@ async def _(client, message):
                         thumb=thumb
                     )
                     await Tm.delete()
-                    user_info = await app2.resolve_peer("@downloader_tiktok_bot")
-                    return await app2.send(DeleteHistory(peer=user_info, max_id=0, revoke=True))                    
+                  #  user_info = await app2.resolve_peer("@downloader_tiktok_bot")
+                 #   return await app2.send(DeleteHistory(peer=user_info, max_id=0, revoke=True))                    
                 except Exception as e:
                     await Tm.edit(f"{e}")
                    
@@ -313,8 +313,8 @@ async def _(client, message):
                     )
                     await Tm.delete()
                     user_info = await app2.resolve_peer("@SaveAsBot")
-                    return await app2.send(DeleteHistory(peer=user_info, max_id=0, revoke=True))
-                    await Tm.delete()
+                  #  return await app2.send(DeleteHistory(peer=user_info, max_id=0, revoke=True))
+                  #  await Tm.delete()
                 except Exception as e:
                     await Tm.edit(f"{e}")
             
@@ -334,8 +334,8 @@ async def _(client, message):
                         thumb=thumb
                     )
                     await Tm.delete()
-                    user_info = await app2.resolve_peer("@Twitter_Video_DownloadBot")
-                    return await app2.send(DeleteHistory(peer=user_info, max_id=0, revoke=True))
+                #    user_info = await app2.resolve_peer("@Twitter_Video_DownloadBot")
+                #    return await app2.send(DeleteHistory(peer=user_info, max_id=0, revoke=True))
                 except Exception as e:
                     await Tm.edit(f"{e}")
 
