@@ -83,17 +83,17 @@ async def _(client, message):
         else None
     )
     if not link:
-        await message.reply("<b>Usage:</b>\n» .conv [amount] [from] [to]")
+        await message.reply("<b>Usage:</b>\n» .convert [amount] [from] [to]")
     else:
         try:
-            command, from_currency, to_currency, amount = message.text.split(" ")
+            command, amount, from_currency, to_currency = message.text.split(" ")
             amount = float(amount)
         except ValueError:
-            await message.reply_text("Format yang tidak valid. Gunakan: /convert   ")
+            await message.reply_text("<b>Usage:</b>\n» .convert [amount] [from] [to]")
             return
 
     # Lakukan konversi mata uang
-        converted_amount = convert_currency(from_currency.upper(), to_currency.upper(), amount)
+        converted_amount = convert_currency(amount, from_currency.upper(), to_currency.upper())
 
     # Kirim hasil konversi ke pengguna
         result_text = f"{amount} {from_currency} = {converted_amount} {to_currency}"
