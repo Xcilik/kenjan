@@ -286,7 +286,7 @@ async def _(client, message):
                     await app.send_video(
                         message.chat.id,
                         anu,
-                        captions = "Done!\n\nSuccess downloaded from TikTok!",
+                        caption = "Done!\n\nSuccess downloaded from TikTok!",
                     )
                     await Tm.delete()
                 except Exception as e:
@@ -305,7 +305,7 @@ async def _(client, message):
                     await app.send_video(
                         message.chat.id,
                         anu,
-                        captions = "Done!\n\nSuccess downloaded from Instagram!",
+                        caption = "Done!\n\nSuccess downloaded from Instagram!",
                     )
                     await Tm.delete()
                 except Exception as e:
@@ -323,7 +323,7 @@ async def _(client, message):
                     await app.send_video(
                         message.chat.id,
                         anu,
-                        captions = "Done!\n\nSuccess downloaded from Twitter!",
+                        caption = "Done!\n\nSuccess downloaded from Twitter!",
                     )
                     await Tm.delete()
                 except Exception as e:
