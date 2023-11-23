@@ -27,7 +27,7 @@ from pyrogram import filters
 
 from wbb import app
 import requests
-import openai
+import openai as anuan
 import g4f
 from wbb.core.decorators.errors import capture_err
 from wbb.core.decorators.permissions import adminsOnly
@@ -112,8 +112,7 @@ async def openai(_, message):
 @app.on_message(
     filters.command("dalle")
 )
-async def curie(client, message):
-    openai_values = OPENAI_APIKEY
+async def curie(_, message):
     msg = (
         message.text.split(None, 1)[1]
         if len(
@@ -127,14 +126,14 @@ async def curie(client, message):
     else:
         cilik = await message.reply("<code>Manipulated image...</code>")
         try:            
-            openai.api_key = openai_values
-            response = openai.Image.create(
+            anuan.api_key = OPENAI_APIKEY
+            response = anuan.Image.create(
             prompt=msg,
             n=1,
             size="1024x1024"
             )
             image_url = response['data'][0]['url']
-            await message.reply_photo(photo=image_url)
+            await app.send_photo(message.chat.id, photo=image_url)
             await cilik.delete()
         except Exception as e:
             await cilik.edit(f"{e}")
