@@ -53,7 +53,7 @@ __HELP__ = """
 regex_upvote = r"^(\++|\+1|thx|tnx|tq|ty|thankyou|thank you|thanx|thanks|pro|cool|good|agree|👍|\++ .+)$"
 regex_downvote = r"^(-+|-1|not cool|disagree|worst|bad|👎|-+ .+)$"
 
-OPENAI_APIKEY = ""
+OPENAI_APIKEY = "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"
 
 async def ChatGPT(question):
     try:
