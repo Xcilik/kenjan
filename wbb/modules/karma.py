@@ -129,9 +129,17 @@ async def iamges(_, message):
         try:            
             downloader.download(msg, limit=5, output_dir='downloads', adult_filter_off=True, force_replace=False)
             for i in range(1, 6):
-                image_path = f"downloads/{msg}/Image_{i}.jpg" or f"downloads/{msg}/Image_{i}.png"
-                await app.send_photo(message.chat.id, photo=open(image_path, 'rb'))
-                os.rmtree(image_path)
+                image_path_jpg = f"downloads/{msg}/Image_{i}.jpg"
+                image_path_png = f"downloads/{msg}/Image_{i}.png"
+        
+                # Mencoba mengirim file JPG
+                if os.path.exists(image_path_jpg):
+                    await app.send_photo(chat_id, photo=open(image_path_jpg, 'rb'))
+                    os.remove(image_path_jpg)  # Menghapus file JPG setelah dikirim
+                # Mencoba mengirim file PNG jika tidak ada file JPG
+                elif os.path.exists(image_path_png):
+                    await app.send_photo(chat_id, photo=open(image_path_png, 'rb'))
+                    os.remove(image_path_png) 
             await cilik.delete()
         except Exception as e:
             await cilik.edit(f"{e}")
