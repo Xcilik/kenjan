@@ -7,6 +7,7 @@ load_dotenv(
 )
 
 BOT_TOKEN = os.environ.get("BOT_TOKEN")
+OPENAI_APIKEY = os.environ.get("OPENAI_APIKEY", "")
 API_ID = int(os.environ.get("API_ID"))
 SESSION_STRING = os.environ.get("SESSION_STRING", "")
 API_HASH = os.environ.get("API_HASH")
