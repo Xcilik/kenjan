@@ -26,6 +26,7 @@ import re
 from pyrogram import filters
 
 from wbb import app
+import requests
 import openai
 import g4f
 from wbb.core.decorators.errors import capture_err
