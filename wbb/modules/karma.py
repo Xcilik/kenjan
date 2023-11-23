@@ -134,11 +134,11 @@ async def iamges(_, message):
         
                 # Mencoba mengirim file JPG
                 if os.path.exists(image_path_jpg):
-                    await app.send_photo(chat_id, photo=open(image_path_jpg, 'rb'))
+                    await app.send_photo(message.chat.id, photo=open(image_path_jpg, 'rb'))
                     os.remove(image_path_jpg)  # Menghapus file JPG setelah dikirim
                 # Mencoba mengirim file PNG jika tidak ada file JPG
                 elif os.path.exists(image_path_png):
-                    await app.send_photo(chat_id, photo=open(image_path_png, 'rb'))
+                    await app.send_photo(message.chat.id, photo=open(image_path_png, 'rb'))
                     os.remove(image_path_png) 
             await cilik.delete()
         except Exception as e:
