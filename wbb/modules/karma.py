@@ -111,7 +111,7 @@ async def openai(_, message):
 async def generate_dalle_image(text):
     url = "https://api.openai.com/v1/images"
     headers = {
-        'Authorization': 'Bearer OPENAI_APIKEY',
+        'Authorization': 'Bearer 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',
         'Content-Type': 'application/json',
     }
     data = {
@@ -128,7 +128,7 @@ async def generate_dalle_image(text):
     filters.command("dalle")
 )
 async def curie(client, message):
-    openai_values = OPENAI_APIKEY
+  #  openai_values = OPENAI_APIKEY
     msg = (
         message.text.split(None, 1)[1]
         if len(
@@ -142,13 +142,7 @@ async def curie(client, message):
     else:
         cilik = await message.reply("<code>Manipulated image...</code>")
         try:            
-            openai.api_key = openai_values
-            response = openai.Image.create(
-            prompt=msg,
-            n=1,
-            size="1024x1024"
-            )
-            image_url = response['data'][0]['url']
+            image_url = await generate_dalle_image(msg)
             await message.reply_photo(photo=image_url)
             await cilik.delete()
         except Exception as e:
