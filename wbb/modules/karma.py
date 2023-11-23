@@ -126,7 +126,7 @@ async def iamges(_, message):
     else:
         cilik = await message.reply("<code>Searching image...</code>")
         try:            
-            downloader.download(query, limit=5, output_dir='downloads', adult_filter_off=True, force_replace=False)
+            downloader.download(msg, limit=5, output_dir='downloads', adult_filter_off=True, force_replace=False)
             for i in range(1, 6):
                 image_path = f"downloads/{query}/{query}{i}.jpg"
                 await app.send_photo(message.chat.id, photo=open(image_path, 'rb'))
