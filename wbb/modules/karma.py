@@ -26,6 +26,7 @@ import re
 from pyrogram import filters
 
 from wbb import app
+import openai
 import g4f
 from wbb.core.decorators.errors import capture_err
 from wbb.core.decorators.permissions import adminsOnly
@@ -52,7 +53,7 @@ __HELP__ = """
 regex_upvote = r"^(\++|\+1|thx|tnx|tq|ty|thankyou|thank you|thanx|thanks|pro|cool|good|agree|👍|\++ .+)$"
 regex_downvote = r"^(-+|-1|not cool|disagree|worst|bad|👎|-+ .+)$"
 
-
+OPENAI_APIKEY = ""
 
 async def ChatGPT(question):
     try:
@@ -104,7 +105,38 @@ async def openai(_, message):
     except Exception as error:
         await message.reply(str(error))
     await Tm.delete()
-    
+
+
+@app.on_message(
+    filters.command("dalle")
+)
+async def curie(client, message):
+    openai_values = OPENAI_APIKEY
+    msg = (
+        message.text.split(None, 1)[1]
+        if len(
+            message.command,
+        )
+        != 1
+        else None
+    )
+    if not msg:
+        await message.reply("<b>What image to manipulated?</b>")
+    else:
+        cilik = await message.reply("<code>Manipulated image...</code>")
+        try:            
+            openai.api_key = openai_values
+            response = openai.Image.create(
+            prompt=msg,
+            n=1,
+            size="1024x1024"
+            )
+            image_url = response['data'][0]['url']
+            await message.reply_photo(photo=image_url)
+            await cilik.delete()
+        except Exception as e:
+            await cilik.edit(f"{e}")
+            
 @app.on_message(
     filters.text
     & filters.group
