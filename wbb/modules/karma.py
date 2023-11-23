@@ -42,6 +42,7 @@ from wbb.utils.dbfunctions import (
     karma_on,
     update_karma,
 )
+from sample_config import OPENAI_APIKEY
 from wbb.utils.filter_groups import karma_negative_group, karma_positive_group
 from wbb.utils.functions import get_user_id_and_usernames
 
@@ -54,7 +55,6 @@ __HELP__ = """
 regex_upvote = r"^(\++|\+1|thx|tnx|tq|ty|thankyou|thank you|thanx|thanks|pro|cool|good|agree|👍|\++ .+)$"
 regex_downvote = r"^(-+|-1|not cool|disagree|worst|bad|👎|-+ .+)$"
 
-OPENAI_APIKEY = "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"
 
 async def ChatGPT(question):
     try:
@@ -108,27 +108,12 @@ async def openai(_, message):
     await Tm.delete()
 
 
-async def generate_dalle_image(text):
-    url = "https://api.openai.com/v1/images"
-    headers = {
-        'Authorization': 'Bearer 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',
-        'Content-Type': 'application/json',
-    }
-    data = {
-        'caption': text,
-        'model': 'text-dall-e-256'
-    }
-    response = requests.post(url, headers=headers, json=data)
-    if response.status_code == 200:
-        return response.json()['url']
-    else:
-        return None
         
 @app.on_message(
     filters.command("dalle")
 )
-async def curie(client, message):
-  #  openai_values = OPENAI_APIKEY
+async def curie(client, message: Message):
+    openai_values = OPENAI_APIKEY
     msg = (
         message.text.split(None, 1)[1]
         if len(
@@ -142,7 +127,13 @@ async def curie(client, message):
     else:
         cilik = await message.reply("<code>Manipulated image...</code>")
         try:            
-            image_url = await generate_dalle_image(msg)
+            openai.api_key = openai_values
+            response = openai.Image.create(
+            prompt=msg,
+            n=1,
+            size="1024x1024"
+            )
+            image_url = response['data'][0]['url']
             await message.reply_photo(photo=image_url)
             await cilik.delete()
         except Exception as e:
