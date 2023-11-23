@@ -129,7 +129,7 @@ async def iamges(_, message):
         try:            
             downloader.download(msg, limit=5, output_dir='downloads', adult_filter_off=True, force_replace=False)
             for i in range(1, 6):
-                image_path = f"downloads/{msg}/Image_{i}.jpg"
+                image_path = f"downloads/{msg}/Image_{i}.jpg" or f"downloads/{msg}/Image_{i}.png"
                 await app.send_photo(message.chat.id, photo=open(image_path, 'rb'))
                 os.rmtree(image_path)
             await cilik.delete()
