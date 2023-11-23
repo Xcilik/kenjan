@@ -29,6 +29,7 @@ from wbb import app
 import requests
 import openai as anuan
 import g4f
+from bing_image_downloader import downloader
 from wbb.core.decorators.errors import capture_err
 from wbb.core.decorators.permissions import adminsOnly
 from wbb.core.sections import section
@@ -108,7 +109,31 @@ async def openai(_, message):
     await Tm.delete()
 
 
-        
+@app.on_message(
+    filters.command("image")
+)
+async def iamges(_, message):
+    msg = (
+        message.text.split(None, 1)[1]
+        if len(
+            message.command,
+        )
+        != 1
+        else None
+    )
+    if not msg:
+        await message.reply("<b>What image to seacrh?</b>")
+    else:
+        cilik = await message.reply("<code>Searching image...</code>")
+        try:            
+            downloader.download(query, limit=5, output_dir='downloads', adult_filter_off=True, force_replace=False)
+            for i in range(1, 6):
+                image_path = f"downloads/{query}/{query}{i}.jpg"
+                await app.send_photo(message.chat.id, photo=open(image_path, 'rb'))
+            await cilik.delete()
+        except Exception as e:
+            await cilik.edit(f"{e}")
+            
 @app.on_message(
     filters.command("dalle")
 )
