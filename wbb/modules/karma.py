@@ -112,7 +112,7 @@ async def openai(_, message):
 @app.on_message(
     filters.command("dalle")
 )
-async def curie(client, message: Message):
+async def curie(client, message):
     openai_values = OPENAI_APIKEY
     msg = (
         message.text.split(None, 1)[1]
