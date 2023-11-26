@@ -2,7 +2,7 @@ aiohttp
 aiofiles
 ffmpeg-python
 gTTS
-dnspython==2.1.0
+#dnspython==2.1.0
 future
 googletrans==4.0.0-rc1
 motor
@@ -16,11 +16,11 @@ search-engine-parser
 speedtest-cli
 TgCrypto
 uvloop
-#youtube_dl
+youtube_dl
 bs4
 python-dotenv
 feedparser
-#pyromod
+pyromod
 fuzzysearch
 img2pdf
 telegraph
