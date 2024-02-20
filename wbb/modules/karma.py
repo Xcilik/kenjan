@@ -28,8 +28,10 @@ from pyrogram import filters
 from wbb import app
 import os
 import requests
-import openai as anuan
-import g4f
+import random
+from io import BytesIO
+
+from freeGPT import AsyncClient
 from bing_image_downloader import downloader
 from wbb.core.decorators.errors import capture_err
 from wbb.core.decorators.permissions import adminsOnly
@@ -58,20 +60,15 @@ regex_upvote = r"^(\++|\+1|thx|tnx|tq|ty|thankyou|thank you|thanx|thanks|pro|coo
 regex_downvote = r"^(-+|-1|not cool|disagree|worst|bad|👎|-+ .+)$"
 
 
-async def ChatGPT(question):
+async def memek(text):
+    prompt = text
     try:
-        response = await g4f.ChatCompletion.create_async(
-            model=g4f.models.default,
-            provider=g4f.Provider.GeekGpt,
-            messages=[
-                {"role": "system", "content": "You are a helpful assistant."},
-                {"role": "user", "content": question},
-            ],
-            timeout=60,
-        )
-        return response if response else "lagi error coba lagi nanti"
-    except Exception as error:
-        return str(error)
+        resp = await AsyncClient.create_completion("gpt3", prompt)
+        return resp
+    except Exception as e:
+        return e
+    return resp, e
+
 
 def get_text(message):
     reply_text = (
@@ -86,6 +83,7 @@ def get_text(message):
         else reply_text + user_text
     )
 
+
 @app.on_message(
     filters.command("ai")
 )
@@ -95,7 +93,7 @@ async def openai(_, message):
         return await message.reply("<b>What???</b>")    
     Tm = await message.reply("<code>Generated Text...</code>")        
     try:
-        response = await ChatGPT(args)
+        response = await memek(args)
         if len(response) > 4096:
             with io.BytesIO(response.encode()) as out_file:
                 out_file.name = "openAi.txt"
@@ -144,34 +142,7 @@ async def iamges(_, message):
         except Exception as e:
             await cilik.edit(f"{e}")
             
-@app.on_message(
-    filters.command("dalle")
-)
-async def curie(_, message):
-    msg = (
-        message.text.split(None, 1)[1]
-        if len(
-            message.command,
-        )
-        != 1
-        else None
-    )
-    if not msg:
-        await message.reply("<b>What image to manipulated?</b>")
-    else:
-        cilik = await message.reply("<code>Manipulated image...</code>")
-        try:            
-            anuan.api_key = OPENAI_APIKEY
-            response = anuan.Image.create(
-            prompt=msg,
-            n=1,
-            size="1024x1024"
-            )
-            image_url = response['data'][0]['url']
-            await app.send_photo(message.chat.id, photo=image_url)
-            await cilik.delete()
-        except Exception as e:
-            await cilik.edit(f"{e}")
+
             
 @app.on_message(
     filters.text
