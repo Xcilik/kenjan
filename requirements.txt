@@ -6,7 +6,7 @@ gTTS
 future
 #googletrans==4.0.0-rc1
 motor
-pillow
+#pillow
 psutil
 pykeyboard
 #pyrogram
@@ -20,7 +20,7 @@ youtube_dl
 bs4
 python-dotenv
 feedparser
-pyromod
+#pyromod
 fuzzysearch
 img2pdf
 telegraph
